@@ -1,0 +1,165 @@
+<head>
+  <title>URL Shortener</title>
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+<style>
+    *,*::before,*::after {
+    box-sizing: border-box;
+    }
+
+    body,section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    }
+
+    body {
+    min-height: 100vh;
+    font-family: "Lato", sans-serif;
+    line-height: 1.5;
+    color: #111;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	  background-size: 400% 400%;
+	  animation: gradient 15s ease infinite;
+	  height: 100vh;
+    }
+
+    @keyframes gradient{
+	    0%{
+		      background-position: 0% 50%;
+	      }
+	    50%{
+		      background-position: 100% 50%;
+	       }
+	   100%{
+		      background-position: 0% 50%;
+	       }
+    }
+
+    h1 {
+    padding: 1rem;
+    margin-left: 200px;
+    }
+
+    input,
+    button {
+    font-family: inherit;
+    line-height: inherit;
+    color: inherit;
+    border: 0;
+    padding: 1rem;
+    }
+
+    input {
+    box-sizing: border-box;
+    width: 100%;
+    }
+
+    .buttons {
+    display: flex;
+    }
+
+    section {
+    min-height: 120px;
+    text-align: center;
+    margin-top: -30px;
+    margin-bottom: 0px;
+    padding: 0px;
+    width: 200px;
+    margin-left: 250px;
+    }
+
+    main{
+    color: rgba(33, 33, 33, 0.84);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    height: 650px;
+    width: 700px;
+    color: black;
+    backdrop-filter: blur(10px);
+    }
+
+    #link{
+    margin-left: 335px;
+    transform: translate(-50%,-50%);
+    width: 600px;
+    border: 3px solid #fff;
+    background: transparent;
+    border-radius: 50px;
+    outline: none;
+    font-size: 18px;
+    color: #fff;
+    }
+
+    #shorten, #copy{
+    cursor: pointer;
+    color: #0a0501;
+    background: #fff;
+    border-radius: 50px;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    height: 40px;
+    width: 100px;
+    padding-top: 12px;
+    margin-left: 280px;
+    margin-top: -20px;
+    }
+
+    #copy {
+      margin-top: -35px;
+    }
+ </style>
+</head>
+<body>
+    <main>
+        <h1>URL Shortener</h1>
+        <form id="post-form">
+          {% csrf_token %}
+          <input type="text" name="link" id="link" placeholder="Enter URL here">
+          <div class="buttons">
+            <button type="submit" id="shorten">Shorten</button>
+          </div>
+        </form>
+        <section id="section">
+          <h2 onclick="copy(this)"class="myDIV" id="h2">
+          </h2>
+        </section>    
+        <div class="buttons">
+          <button type="submit" id="copy" onclick="h2Click()">Copy</button>
+        </div>
+      </main>
+      <script type = "text/javascript">
+        document.getElementById("copy").style.display = "none";
+        $(document).on('submit','#post-form',function(x){
+          document.getElementById("copy").style.display = "block";
+          // prevent from reload
+          x.preventDefault();
+
+          $.ajax({
+            type:'POST',
+            url:'/create',
+            data:{
+              link:$('#link').val(),
+              csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            }, 
+            success: function (data){
+              $('h2').html("localhost:8000/" + data)
+            }
+          });
+        });
+
+        function h2Click(){
+          document.getElementById("h2").click();
+        }
+        function copy(that){
+          var inp =document.createElement('input');
+          document.body.appendChild(inp)
+          inp.value =that.textContent
+          inp.select();
+          document.execCommand('copy',false);
+          inp.remove();
+        }
+      </script>
+</body>
+

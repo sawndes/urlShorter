@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\..\\..\\Project"
+		},
+		{
+			"path": "..\\..\\..\\.."
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\..\\HCK\\Second Semester\\Internet Architecture"
+		},
+		{
+			"path": "..\\..\\..\\..\\..\\..\\Assistant"
+		},
+		{
+			"path": "c:\\xampp\\htdocs"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Internet Architecture"
+	}
+}
