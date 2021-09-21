@@ -7,7 +7,7 @@ Url Shorter is a web application implemented using Python (Django) for Backend a
 ## Project Demo
 
 ### Video Preview
-https://
+https://youtu.be/-XVD6Bh7g2Q
 
 ### Screenshots
 1. Home Page
